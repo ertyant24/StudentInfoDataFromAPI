@@ -13,12 +13,30 @@ namespace StudentInfoDataFromAPI.Controllers
 		public IActionResult Index()
 		{
 
-			RestClient client = new RestClient("http://localhost:5156/api");
-			RestRequest request = new RestRequest("/Student", Method.Get);
+			RestClient client = new RestClient("http://localhost:5156/api/Student");
+			RestRequest request = new RestRequest("", Method.Get);
 			List<Student> response = client.Get<List<Student>>(request);
 
 			return View(response);
 		}
+
+		public IActionResult Create()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult Create(CreateStudentModel model)
+		{
+			RestClient client = new RestClient("http://localhost:5156/api/Student");
+			RestRequest request = new RestRequest("", Method.Post);
+			request.AddJsonBody(model);
+			RestResponse<Student> student = client.ExecutePost<Student>(request);
+
+			return RedirectToAction(nameof(Index));
+		}
+
+
 
 		public IActionResult Privacy()
 		{
