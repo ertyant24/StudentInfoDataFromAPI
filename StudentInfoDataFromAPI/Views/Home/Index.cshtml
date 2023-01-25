@@ -1,0 +1,51 @@
+﻿@model List<Student>
+
+<div>
+	<h1 class="display-3">- ISKUR Student List -</h1><hr />
+</div>
+
+<div class="mt-3">
+	<table class="table table-hover table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Student Name</th>
+				<th>Age</th>
+				<th>Computer</th>
+				<th>College</th>
+				<th>Success Status</th>
+				<th class="text-center">
+						<i class="fa-solid fa-circle-check"></i>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Student student in Model)
+			{
+				<tr>
+					<th>@student.FullName</th>
+					<th>@student.Age</th>
+					<th>@student.Computer</th>
+					<th>@student.College</th>
+					<th>
+						@if(student.IsSuccess == true)
+						{
+							<i class="fa-solid fa-circle-check"></i>
+						}
+						else
+						{
+							<i class="fa-solid fa-circle-xmark"></i>
+						}
+					</th>
+					<th class="text-center">
+						<a asp-action="Edit" asp-route-id="@student.Id" class="btn btn-warning btn-sm mx-2">Edit</a>
+						<a asp-action="Delete" asp-route-id="@student.Id" class="btn btn-danger btn-sm">Delete</a>
+					</th>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<div class="mt-3 text-end">
+	<a asp-action="Create" class="btn btn-info">Add Student</a>
+</div>
